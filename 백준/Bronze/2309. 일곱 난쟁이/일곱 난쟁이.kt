@@ -11,6 +11,8 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
         list.set(it, readLine().toInt())
     }
 
+    var sum = list.sum()
+
     for (i in 0 until list.lastIndex) {
         for (j in i + 1 until list.size) {
             val tempI = list[i]
@@ -19,17 +21,17 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
             val result = runCatching {
                 list[i] = 0
                 list[j] = 0
-                //println(list.toList())
             }
 
-            if (result.isSuccess && list.sum() == 100) {
+            if (result.isSuccess && sum - tempI - tempJ == 100) {
+                sum = sum - tempI - tempJ
                 break
             } else {
                 list[i] = tempI
                 list[j] = tempJ
             }
         }
-        if(list.sum() == 100) break
+        if(sum  == 100) break
     }
 
     list.sort()
